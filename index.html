@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RinduSastra - Ruang Baca Puisi</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#ffeef5,#e0e7ff,#fff7ed);min-height:100vh;color:#2d1b22}
+body.dark{background:#1a0f14;color:#ffeef2}
+.wrap{max-width:1050px;margin:auto;padding:0 16px}
+.hidden{display:none!important}
+#loginPage{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.login-card{background:#fff;border-radius:28px;padding:28px 24px;width:100%;max-width:440px;text-align:center;box-shadow:0 20px 50px rgba(231,29,99,.2)}
+.login-card h1{font-family:'Playfair Display',serif;font-size:36px} .login-card h1 span{color:#e11d63}
+.heart{font-size:46px;animation:beat 1.2s infinite}
+@keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+.login-card p{color:#888;font-size:13px;margin:8px 0 14px}
+.tabs{display:flex;background:#ffeef2;border-radius:999px;padding:4px;margin:14px 0}
+.tabs button{flex:1;border:none;padding:10px;border-radius:999px;font-weight:700;cursor:pointer;background:transparent}
+.tabs button.active{background:#e11d63;color:#fff}
+.login-card label{text-align:left;display:block;font-size:13px;font-weight:600;margin:12px 0 6px}
+.login-card input{width:100%;padding:14px 16px;border-radius:14px;border:1.5px solid #e5e7eb;outline:none;font-size:15px}
+.login-card input:focus{border-color:#e11d63}
+.pw-wrap{position:relative} .pw-wrap button{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:18px}
+.btn-login{width:100%;background:linear-gradient(90deg,#e11d63,#a855f7);color:#fff;border:none;padding:15px;border-radius:14px;font-weight:700;font-size:16px;margin-top:16px;cursor:pointer}
+.btn-guest{width:100%;background:#fff;border:1.5px solid #e11d63;color:#e11d63;padding:12px;border-radius:14px;font-weight:700;margin-top:10px;cursor:pointer}
+.link-row{display:flex;justify-content:space-between;font-size:12px;margin-top:10px}
+.link-row a{color:#e11d63;font-weight:600;cursor:pointer;text-decoration:none}
+.divider{display:flex;align-items:center;gap:10px;color:#aaa;font-size:12px;margin:16px 0}
+.divider:before,.divider:after{content:"";flex:1;height:1px;background:#eee}
+.shake{animation:shake .4s} @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.9);backdrop-filter:blur(15px);padding:12px 0}
+body.dark header{background:rgba(30,15,20,.9)}
+.nav{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.logo{font-family:'Playfair Display',serif;font-size:22px;font-weight:700} .logo span{color:#e11d63}
+.btn{border:none;padding:9px 14px;border-radius:999px;font-weight:600;cursor:pointer;font-size:13px}
+.btn-pink{background:#e11d63;color:#fff} .btn-white{background:#fff;border:1px solid #ddd} .btn-dark{background:#111;color:#fff}
+body.dark .btn-white{background:#2a1a22;color:#fff;border-color:#444}
+.hero{text-align:center;padding:28px 0 10px}
+.hero h2{font-family:'Playfair Display',serif;font-size:32px;line-height:1.2}
+.hero h2 span{color:#e11d63}
+.hero p{color:#888;font-size:13px;max-width:600px;margin:10px auto}
+.progress-wrap{background:#fff;border-radius:999px;height:12px;overflow:hidden;margin:14px 0}
+body.dark .progress-wrap{background:#333}
+.progress{height:100%;background:linear-gradient(90deg,#e11d63,#a855f7);width:0%;transition:.5s}
+.search{margin:14px 0;display:flex;gap:8px}
+.search input{flex:1;padding:13px 16px;border-radius:999px;border:1.5px solid #f0c9d5;outline:none}
+body.dark .search input{background:#2a1a22;color:#fff;border-color:#444}
+.cats{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;white-space:nowrap}
+.cat-btn{background:rgba(255,255,255,.8);border:1px solid #f0c9d5;padding:8px 14px;border-radius:999px;cursor:pointer;font-size:13px;font-weight:600}
+.cat-btn.active{background:#e11d63;color:#fff}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:16px 0}
+@media(max-width:650px){.grid{grid-template-columns:1fr}.hero h2{font-size:26px}}
+.card{background:rgba(255,255,255,.9);border-radius:18px;padding:18px;box-shadow:0 6px 20px rgba(0,0,0,.05);cursor:pointer;position:relative}
+body.dark .card{background:#2a1a22}
+.card:hover{transform:translateY(-3px)}
+.card .num{font-size:11px;font-weight:700;color:#e11d63}
+.card h3{font-family:'Playfair Display',serif;font-size:19px;margin:6px 0}
+.card p{font-size:13px;color:#888}
+.cover{height:70px;border-radius:12px;margin:10px 0;display:flex;align-items:center;justify-content:center;font-size:32px}
+.mood{position:absolute;top:12px;right:12px;background:#fff0f4;color:#e11d63;font-size:11px;padding:4px 9px;border-radius:999px;font-weight:700}
+.meta{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-size:12px;color:#888}
+.read-btn{background:#e11d63;color:#fff;border:none;padding:8px 14px;border-radius:999px;font-weight:700;cursor:pointer}
+.pagination{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:18px 0}
+.page-btn{background:#fff;border:1px solid #ddd;padding:9px 13px;border-radius:10px;cursor:pointer;font-weight:600}
+.page-btn.active{background:#e11d63;color:#fff;border-color:#e11d63}
+.reader{display:none;background:#fff;border-radius:22px;padding:26px;margin:10px 0 30px;box-shadow:0 10px 30px rgba(0,0,0,.08)}
+body.dark .reader{background:#2a1a22}
+.reader.show{display:block}
+.reader h2{font-family:'Playfair Display',serif;font-size:27px;text-align:center}
+.poem-text{white-space:pre-line;text-align:center;line-height:2;font-size:19px;font-family:'Playfair Display',serif;margin:16px 0}
+.controls{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.controls button{padding:10px 13px;border-radius:999px;border:1px solid #eee;background:#fff;cursor:pointer;font-weight:600;font-size:13px}
+body.dark .controls button{background:#3a2430;color:#fff;border-color:#444}
+.footer{text-align:center;padding:18px;color:#aaa;font-size:12px}
+.wa-float{position:fixed;bottom:16px;right:16px;background:#25D366;color:#fff;padding:12px 16px;border-radius:999px;font-weight:700;z-index:99}
+</style>
+</head>
+<body>
+
+<div id="loginPage">
+  <div class="login-card" id="loginCard">
+    <div class="heart">💌</div>
+    <h1>Rindu<span>Sastra</span></h1>
+    <p>Selamat Datang Kembali<br>Silakan masuk untuk melanjutkan membaca</p>
+    <div class="tabs">
+      <button id="tabMasuk" class="active" onclick="switchTab('masuk')">Masuk</button>
+      <button id="tabDaftar" onclick="switchTab('daftar')">Daftar</button>
+    </div>
+
+    <!-- FORM MASUK - KAYAK LOGIN UMUM -->
+    <div id="formMasuk">
+      <label>Email atau Username</label>
+      <input id="loginNama" placeholder="Masukkan email atau username" autocomplete="username">
+      <label>Password</label>
+      <div class="pw-wrap"><input id="loginPass" type="password" placeholder="Masukkan password" autocomplete="current-password"><button onclick="togglePw('loginPass')">👁️</button></div>
+      <div class="link-row"><label style="display:flex;gap:6px;align-items:center;margin:0;font-weight:500"><input type="checkbox" id="ingatSaya" style="width:auto"> Ingat saya</label><a onclick="lupaPassword()">Lupa password?</a></div>
+      <button class="btn-login" onclick="doLogin()">Masuk</button>
+      <div class="divider">atau</div>
+      <button class="btn-guest" onclick="guestLogin()">👋 Lanjutkan Sebagai Tamu</button>
+    </div>
+
+    <!-- FORM DAFTAR - KAYAK DAFTAR UMUM -->
+    <div id="formDaftar" class="hidden">
+      <label>Nama Lengkap</label>
+      <input id="regNama" placeholder="Masukkan nama lengkap">
+      <label>Email atau Username</label>
+      <input id="regUser" placeholder="Contoh: salsabila123 atau email@gmail.com">
+      <label>Password</label>
+      <div class="pw-wrap"><input id="regPass" type="password" placeholder="Buat password (min. 6 karakter)"><button onclick="togglePw('regPass')">👁️</button></div>
+      <label>Konfirmasi Password</label>
+      <input id="regPass2" type="password" placeholder="Ulangi password">
+      <button class="btn-login" onclick="doRegister()">Daftar</button>
+      <p style="font-size:12px;margin-top:10px">Dengan mendaftar, kamu menyetujui <b>Syarat & Ketentuan</b> RinduSastra.</p>
+    </div>
+
+    <div id="loginMsg" style="color:#e11d63;font-size:13px;margin-top:10px"></div>
+    <p style="font-size:12px;color:#999;margin-top:8px">Belum punya akun? <b style="color:#e11d63;cursor:pointer" onclick="switchTab('daftar')">Daftar gratis</b></p>
+  </div>
+</div>
+
+<div id="mainPage" class="hidden">
+<header><div class="wrap nav"><div class="logo">Rindu<span>Sastra</span> 💌</div><div style="display:flex;gap:8px;flex-wrap:wrap"><span id="haloUser" style="font-size:13px;font-weight:600;align-self:center"></span><button class="btn btn-white" onclick="toggleDark()">🌙 Mode</button><button class="btn btn-pink" onclick="showFav()">❤️ Favorit (<span id="favCount">0</span>)</button><button class="btn btn-dark" onclick="logout()">Keluar</button></div></div></header>
+<div class="wrap">
+  <div class="hero">
+    <h2 id="heroTitle">200 Puisi Untuk Hati<br><span>Yang Sedang Jatuh Cinta</span></h2>
+    <p>20 Halaman • Setiap halaman 10 puisi • Baca pelan-pelan, jangan nangis ya.</p>
+    <div class="progress-wrap"><div class="progress" id="progressBar"></div></div>
+    <p id="progressText" style="font-size:12px">Kamu sudah baca 0 / 200 puisi</p>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><button class="btn btn-pink" onclick="buka(0)">📖 Mulai dari Bab 1</button><button class="btn btn-dark" onclick="puisiAcak()">🎲 Aku Lagi Galau, Kasih Puisi Dong</button></div>
+  </div>
+  <div class="search"><input id="searchInput" placeholder="Cari judul puisi... misal: rindu, jarak, senja" onkeyup="render()"><button class="btn btn-pink" onclick="render()">Cari</button></div>
+  <div class="cats">
+    <button class="cat-btn active" onclick="setMood('Semua',this)">Semua</button>
+    <button class="cat-btn" onclick="setMood('Romantis',this)">❤️ Romantis</button>
+    <button class="cat-btn" onclick="setMood('Jatuh Cinta',this)">😍 Jatuh Cinta</button>
+    <button class="cat-btn" onclick="setMood('Cinta Terhalang Jarak',this)">📍 Cinta Terhalang Jarak</button>
+    <button class="cat-btn" onclick="setMood('Rindu',this)">💭 Rindu</button>
+    <button class="cat-btn" onclick="setMood('Patah Hati',this)">💔 Patah Hati</button>
+  </div>
+  <div id="reader" class="reader">
+    <div style="text-align:center;font-size:12px;color:#e11d63;font-weight:700" id="rMood"></div>
+    <h2 id="rTitle"></h2>
+    <div style="text-align:center;color:#999;font-size:13px" id="rMeta"></div>
+    <div class="poem-text" id="rText"></div>
+    <div class="controls">
+      <button onclick="prevBab()">← Bab Sebelumnya</button>
+      <button onclick="speakPuisi()">🔊 Dengarkan</button>
+      <button onclick="ubahFont(2)">A+</button>
+      <button onclick="ubahFont(-2)">A-</button>
+      <button onclick="toggleFavCurrent()">❤️ Favorit</button>
+      <button onclick="salinPuisi()">📋 Salin</button>
+      <button onclick="shareWA()">💬 Share WA</button>
+      <button onclick="nextBab()">Bab Berikutnya →</button>
+    </div>
+    <div id="rComments" style="margin-top:16px"></div>
+    <div style="text-align:center;margin-top:12px"><button class="btn btn-white" onclick="tutupReader()">✖ Tutup</button></div>
+  </div>
+  <h3 id="listTitle" style="margin:8px 0">📚 Halaman 1 dari 20</h3>
+  <div class="grid" id="grid"></div>
+  <div class="pagination" id="pagination"></div>
+  <div class="footer">RinduSastra - Dibuat dengan cinta di Bandung 💌<br>© 2026 RinduSastra • 200 Bab Puisi</div>
+</div>
+</div>
+<a class="wa-float" href="https://wa.me/6283176523902?text=Halo,%20saya%20habis%20baca%20RinduSastra!" target="_blank">💬 WA</a>
+
+<script>
+// ===== SISTEM AKUN UMUM =====
+let users = JSON.parse(localStorage.getItem('rinduUsers')||'{}');
+function saveUsers(){ localStorage.setItem('rinduUsers', JSON.stringify(users)); }
+function switchTab(m){
+  document.getElementById('tabMasuk').classList.toggle('active', m=='masuk');
+  document.getElementById('tabDaftar').classList.toggle('active', m=='daftar');
+  document.getElementById('formMasuk').classList.toggle('hidden', m!='masuk');
+  document.getElementById('formDaftar').classList.toggle('hidden', m!='daftar');
+  document.getElementById('loginMsg').innerText='';
+}
+function togglePw(id){ let p=document.getElementById(id); p.type=p.type=='password'?'text':'password'; }
+function lupaPassword(){ let u=prompt('Masukkan email atau username kamu untuk reset password:'); if(!u) return; let key=u.trim().toLowerCase(); if(users[key]){ alert('Password kamu adalah: '+users[key].pass+'\nSimpan baik-baik ya!'); } else { alert('Akun tidak ditemukan. Coba daftar dulu ya!'); } }
+function masukSukses(displayName){
+  localStorage.setItem('rinduLogin', displayName);
+  document.getElementById('loginPage').classList.add('hidden');
+  document.getElementById('mainPage').classList.remove('hidden');
+  document.getElementById('haloUser').innerText='Halo, '+displayName+' ❤️';
+  document.getElementById('heroTitle').innerHTML=`Halo ${displayName},<br><span>200 Puisi Menunggu Kamu</span>`;
+  loadUserData(displayName);
+  render();
+}
+function doLogin(){
+  let nama=document.getElementById('loginNama').value.trim();
+  let pass=document.getElementById('loginPass').value.trim();
+  if(!nama || !pass){ document.getElementById('loginMsg').innerText='Email/username dan password wajib diisi ya!'; return; }
+  let key=nama.toLowerCase();
+  // Akun lama Salsabila tetap bisa login diam-diam, tapi tidak ditampilkan lagi
+  if(key==='salsabila rizki' && pass==='ibayganteng'){ masukSukses('Salsabila Rizki'); return; }
+  if(users[key] && users[key].pass===pass){ masukSukses(users[key].display); }
+  else{
+    document.getElementById('loginMsg').innerText='Email/username atau password salah. Coba lagi atau daftar akun baru.';
+    let c=document.getElementById('loginCard'); c.classList.remove('shake'); void c.offsetWidth; c.classList.add('shake');
+  }
+}
+function doRegister(){
+  let nama=document.getElementById('regNama').value.trim();
+  let user=document.getElementById('regUser').value.trim();
+  let pass=document.getElementById('regPass').value.trim();
+  let pass2=document.getElementById('regPass2').value.trim();
+  if(!nama || !user || !pass){ document.getElementById('loginMsg').innerText='Semua kolom wajib diisi ya!'; return; }
+  if(pass.length<6){ document.getElementById('loginMsg').innerText='Password minimal 6 karakter ya!'; return; }
+  if(pass!==pass2){ document.getElementById('loginMsg').innerText='Konfirmasi password tidak sama!'; return; }
+  let key=user.toLowerCase();
+  if(users[key]){ document.getElementById('loginMsg').innerText='Email/username ini sudah terdaftar. Coba login aja!'; switchTab('masuk'); return; }
+  users[key]={display:nama, pass:pass, user:user};
+  saveUsers();
+  alert('Akun berhasil dibuat! Selamat datang, '+nama+' ❤️');
+  masukSukses(nama);
+}
+function guestLogin(){ masukSukses('Tamu'); }
+function logout(){ localStorage.removeItem('rinduLogin'); location.reload(); }
+let savedLogin = localStorage.getItem('rinduLogin');
+if(savedLogin){ masukSukses(savedLogin); }
+
+let currentUser='Tamu';
+let favs=[], dibaca=new Set();
+function loadUserData(name){ currentUser=name; favs=JSON.parse(localStorage.getItem('rinduFav_'+name)||'[]'); dibaca=new Set(JSON.parse(localStorage.getItem('rinduBaca_'+name)||'[]')); }
+function saveUserData(){ localStorage.setItem('rinduFav_'+currentUser, JSON.stringify(favs)); localStorage.setItem('rinduBaca_'+currentUser, JSON.stringify([...dibaca])); }
+
+const themes=[
+ {mood:"Romantis", emoji:"❤️", warna:"linear-gradient(135deg,#fce7f3,#fbcfe8)", awal:["Di antara bintang yang berjatuhan","Malam ini langit begitu indah","Saat kamu tersenyum padaku","Aku menulis namamu di hatiku","Cintamu adalah rumahku"]},
+ {mood:"Jatuh Cinta", emoji:"😍", warna:"linear-gradient(135deg,#fef3c7,#fde68a)", awal:["Sejak pertama kali melihatmu","Jantungku berdebar tak karuan","Kamu datang seperti pagi","Aku jatuh cinta tanpa aba-aba","Senyummu adalah canduku"]},
+ {mood:"Cinta Terhalang Jarak", emoji:"📍", warna:"linear-gradient(135deg,#dcfce7,#bbf7d0)", awal:["Jarak memisahkan raga kita","Ribuan kilo di antara kita","Kita menatap langit yang sama","Jauh di mata dekat di hati","LDR bukan akhir cinta kita"]},
+ {mood:"Rindu", emoji:"💭", warna:"linear-gradient(135deg,#e0e7ff,#c7d2fe)", awal:["Rindu ini tak pernah pulang","Malam ini aku merindukanmu","Setiap hujan mengingatkanku","Aku rindu tawamu yang dulu","Rindu adalah lagu yang tak selesai"]},
+ {mood:"Patah Hati", emoji:"💔", warna:"linear-gradient(135deg,#ffe4e6,#fecdd3)", awal:["Kamu pergi tanpa pamit","Hatiku patah berkeping-keping","Aku mencoba melupakanmu","Kenangan itu masih membekas","Patah hati ini mengajarkanku"]}
+];
+const judulTambahan=["Yang Tak Pernah Pergi","Di Ujung Senja","Antara Kita","Untukmu Selamanya","Di Balik Hujan","Saat Kamu Jauh","Di Setiap Doaku","Yang Kusimpan Rapi","Di Tengah Sepi","Bersama Waktu","Di Balik Rindu","Untuk Yang Terkasih","Di Kota Ini","Di Antara Bintang","Yang Masih Ku tunggu"];
+const puisies=[];
+for(let i=0;i<200;i++){
+  let t=themes[i%5]; let no=i+1;
+  let judul = t.mood+" "+judulTambahan[i%judulTambahan.length]+" ("+no+")";
+  if(i<10) judul=["Rindu Yang Tak Pernah Pulang","Kamu Di Antara Doa-Doaku","Jatuh Cinta Diam-Diam","LDR - Jarak Bukan Alasan","Patah Hati Yang Paling Manis","Hujan Dan Kamu","Aku Masih Menunggumu","Senja Yang Mengingatkanmu","Jika Kita Bertemu Lagi","Untukmu Yang Tak Pernah Tahu"][i];
+  let bait1=t.awal[i%t.awal.length];
+  let teks = `${bait1},\nDan hatiku tak bisa berdusta.\nSetiap detik aku mengingatmu,\nSeperti lagu yang tak pernah usai.\n\nBab ${no} ini kutulis untukmu,\nYang selalu ada di setiap doaku.\nJika kamu membaca ini suatu hari,\nKetahuilah, aku masih mencintaimu.\n\nJarak, waktu, dan sepi tak mampu,\nMenghapus namamu dari hatiku.\nKamu adalah cerita terindah,\nYang tak akan pernah kutukar.\n\nJika suatu hari kita bertemu lagi,\nAku hanya ingin tersenyum padamu.\nKarena pernah mencintaimu,\nAdalah hadiah terindah dalam hidupku.\n\nDan untukmu, Bab ${no} ini,\nAdalah bukti bahwa cintaku nyata.\nMeski kamu jauh, meski kamu tak tahu,\nHatiku tetap memilihmu.`;
+  puisies.push({judul, mood:t.mood, emoji:t.emoji, warna:t.warna, teks, komen:[["Rizky - Bandung","Bab "+no+" ini relate banget, gue sampe mewek 😭"],["Salsabila","Ini puisi favorit gue, bagus banget ❤️"]]});
+}
+let current=-1, fontSize=19, moodFilter='Semua', currentPage=1, perPage=10;
+function updateProgress(){
+  document.getElementById('progressBar').style.width=(dibaca.size/200*100)+'%';
+  document.getElementById('progressText').innerText=`${currentUser} sudah baca ${dibaca.size} / 200 puisi • Halaman ${currentPage} dari 20`;
+  document.getElementById('favCount').innerText=favs.length;
+}
+function render(){
+  if(document.getElementById('mainPage').classList.contains('hidden')) return;
+  let q=document.getElementById('searchInput').value.toLowerCase();
+  let filtered=puisies.map((p,i)=>({...p,idx:i})).filter(p=>(moodFilter=='Semua'||p.mood==moodFilter) && (p.judul.toLowerCase().includes(q) || p.teks.toLowerCase().includes(q)));
+  let isSearch=document.getElementById('searchInput').value.trim()!='' || moodFilter!='Semua';
+  let list;
+  if(isSearch){ list=filtered.slice(0,20); document.getElementById('listTitle').innerText=`📚 Ditemukan ${filtered.length} puisi`; document.getElementById('pagination').innerHTML=''; }
+  else{
+    let start=(currentPage-1)*perPage;
+    list=puisies.slice(start,start+perP
